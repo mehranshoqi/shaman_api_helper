@@ -1,5 +1,6 @@
 import 'package:api_handler/core/token/token.dart';
 import 'package:api_handler/feature/api_handler/presentation/presentation_usecase.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class mainpage extends StatefulWidget {
 }
 
 class _mainpageState extends State<mainpage> {
-  @override 
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Page(),
@@ -36,7 +37,7 @@ class Page extends StatefulWidget {
 }
 
 class _PageState extends State<Page> {
-  APIHandler api = APIHandler();
+  APIHandler api = APIHandler(Dio());
   @override
   void initState() {
     // TODO: implement initState

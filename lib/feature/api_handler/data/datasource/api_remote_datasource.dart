@@ -49,6 +49,8 @@ abstract class ApiRemoteDataSource {
 }
 
 class ApiRemoteDataSourceImpl extends ApiRemoteDataSource {
+  final Dio dio;
+  ApiRemoteDataSourceImpl(this.dio);
   @override
   Future<ResponseModel> httpDelete(
       String url,
@@ -61,7 +63,7 @@ class ApiRemoteDataSourceImpl extends ApiRemoteDataSource {
     ResponseModel responseModel = ResponseModel();
     while (i < ApiRemoteDataSource._tries) {
       try {
-        var response = await Dio()
+        var response = await dio
             .delete(
                 ApiHelperMethodsImpl().urlGenerator(url, query, pathVariable),
                 data: body,
@@ -116,7 +118,7 @@ class ApiRemoteDataSourceImpl extends ApiRemoteDataSource {
     ResponseModel responseModel = ResponseModel();
     while (i < ApiRemoteDataSource._tries) {
       try {
-        var response = await Dio()
+        var response = await dio
             .get(ApiHelperMethodsImpl().urlGenerator(url, query, pathVariable),
                 options: Options(
                   headers: ApiHelperMethodsImpl().headerGetter(headerEnum),
@@ -170,7 +172,7 @@ class ApiRemoteDataSourceImpl extends ApiRemoteDataSource {
     ResponseModel responseModel = ResponseModel();
     while (i < ApiRemoteDataSource._tries) {
       try {
-        var response = await Dio()
+        var response = await dio
             .post(ApiHelperMethodsImpl().urlGenerator(url, query, pathVariable),
                 data: body,
                 options: Options(
@@ -224,7 +226,7 @@ class ApiRemoteDataSourceImpl extends ApiRemoteDataSource {
     ResponseModel responseModel = ResponseModel();
     while (i < ApiRemoteDataSource._tries) {
       try {
-        var response = await Dio()
+        var response = await dio
             .put(ApiHelperMethodsImpl().urlGenerator(url, query, pathVariable),
                 data: body,
                 options: Options(

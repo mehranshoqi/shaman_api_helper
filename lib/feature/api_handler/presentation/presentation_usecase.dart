@@ -1,6 +1,7 @@
 import 'package:api_handler/core/consts/language.dart';
 import 'package:api_handler/core/consts/user_agent.dart';
 import 'package:api_handler/feature/api_handler/domain/usecases/get_api_usecase.dart';
+import 'package:dio/dio.dart';
 import '../../../core/models/api_data/api_data.dart';
 import '../../../core/token/token.dart';
 import '../data/enums/header_enum.dart';
@@ -12,12 +13,21 @@ import '../domain/usecases/post_api_usecase.dart';
 import '../domain/usecases/put_api_usecase.dart';
 
 class APIHandler {
-  final GetApi _getApi = GetApi();
-  final PostApi _postApi = PostApi();
-  final PutApi _putApi = PutApi();
-  final DeleteApi _deleteApi = DeleteApi();
+  late GetApi _getApi;
+  late PostApi _postApi;
+  late PutApi _putApi;
+  late DeleteApi _deleteApi;
+
+  final Dio dio;
 
   static Function? _onTokenExpired;
+
+  APIHandler(this.dio) {
+    _getApi = GetApi(dio);
+    _postApi = PostApi(dio);
+    _putApi = PutApi(dio);
+    _deleteApi = DeleteApi(dio);
+  }
 
   /// this method is called when the token is expired.
   onTokenExpired(Function onTokenExp) {
