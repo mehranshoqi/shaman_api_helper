@@ -37,7 +37,7 @@ class Page extends StatefulWidget {
 }
 
 class _PageState extends State<Page> {
-  APIHandler api = APIHandler(Dio());
+  APIHandler api = APIHandler();
   @override
   void initState() {
     // TODO: implement initState

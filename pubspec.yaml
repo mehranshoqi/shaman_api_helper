@@ -6,6 +6,7 @@ environment: {sdk: '>=2.18.2 <3.0.0'}
 dependencies:
   flutter: {sdk: flutter}
   cupertino_icons: ^1.0.2
+  pretty_dio_logger:
   http: ^0.13.5
   dio: ^5.0.0
 dev_dependencies:
