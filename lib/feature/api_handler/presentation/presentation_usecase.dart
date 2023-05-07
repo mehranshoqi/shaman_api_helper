@@ -22,32 +22,20 @@ class APIHandler {
   late PutApi _putApi;
   late DeleteApi _deleteApi;
 
-  APIHandler() {
-    dio
-      ..interceptors.add(
-        PrettyDioLogger(
-          requestHeader: true,
-          requestBody: true,
-          responseBody: true,
-          responseHeader: true,
-          request: true,
-          error: true,
-          compact: false,
-          maxWidth: 300,
-        ),
-      )
-      ..options.headers['X-Device-ID'] = deviceID
-      ..interceptors.add(
-        InterceptorsWrapper(
-          onRequest: (options, handler) {
-            print('ON Requrest interceptor ::: > ');
-            print(options.headers);
-            print(options.headers.entries);
-            print(options.headers.values);
-            print(options.headers['X-Device-ID']);
-          },
-        ),
-      );
+  APIHandler(String deviceId) {
+    dio.interceptors.add(
+      PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
+        responseHeader: true,
+        request: true,
+        error: true,
+        compact: false,
+        maxWidth: 300,
+      ),
+    );
+    dio.options.headers['X-Device-ID'] = deviceId;
 
     _getApi = GetApi(dio);
     _postApi = PostApi(dio);
