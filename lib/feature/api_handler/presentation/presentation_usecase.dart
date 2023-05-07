@@ -15,20 +15,7 @@ import '../domain/usecases/post_api_usecase.dart';
 import '../domain/usecases/put_api_usecase.dart';
 
 class APIHandler {
-  final Dio dio = Dio()
-    ..interceptors.add(
-      PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: true,
-        request: true,
-        error: true,
-        compact: false,
-        maxWidth: 300,
-      ),
-    )
-    ..options.headers['X-Device-ID'] = deviceID;
+  final Dio dio = Dio();
 
   late GetApi _getApi;
   late PostApi _postApi;
@@ -36,6 +23,32 @@ class APIHandler {
   late DeleteApi _deleteApi;
 
   APIHandler() {
+    dio
+      ..interceptors.add(
+        PrettyDioLogger(
+          requestHeader: true,
+          requestBody: true,
+          responseBody: true,
+          responseHeader: true,
+          request: true,
+          error: true,
+          compact: false,
+          maxWidth: 300,
+        ),
+      )
+      ..options.headers['X-Device-ID'] = deviceID
+      ..interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            print('ON Requrest interceptor ::: > ');
+            print(options.headers);
+            print(options.headers.entries);
+            print(options.headers.values);
+            print(options.headers['X-Device-ID']);
+          },
+        ),
+      );
+
     _getApi = GetApi(dio);
     _postApi = PostApi(dio);
     _putApi = PutApi(dio);
