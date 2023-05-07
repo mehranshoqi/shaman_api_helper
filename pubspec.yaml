@@ -9,6 +9,7 @@ dependencies:
   pretty_dio_logger:
   http: ^0.13.5
   dio: ^5.0.0
+  device_info_plus: ^8.2.2
 dev_dependencies:
   flutter_test: {sdk: flutter}
   flutter_lints: ^2.0.0

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:api_handler/core/token/token.dart';
 import 'package:api_handler/feature/api_handler/presentation/presentation_usecase.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +12,20 @@ import 'feature/api_handler/data/enums/response_enum.dart';
 import 'feature/api_handler/data/enums/result_enums.dart';
 import 'feature/api_handler/data/models/response_model.dart';
 
-void main() {
+void main() async {
+  var deviceInfo = DeviceInfoPlugin();
+  if (Platform.isIOS) {
+    var iosDeviceInfo = await deviceInfo.iosInfo;
+    deviceID = iosDeviceInfo.identifierForVendor ?? 'API-HANDLER-IOS-DEVICE-ID';
+  } else if (Platform.isAndroid) {
+    var androidDeviceInfo = await deviceInfo.androidInfo;
+    deviceID = androidDeviceInfo.id;
+  }
+  await Future.delayed(const Duration(milliseconds: 200));
   runApp(mainpage());
 }
+
+String deviceID = '';
 
 class mainpage extends StatefulWidget {
   const mainpage({Key? key}) : super(key: key);

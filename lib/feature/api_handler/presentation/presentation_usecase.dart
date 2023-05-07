@@ -1,6 +1,7 @@
 import 'package:api_handler/core/consts/language.dart';
 import 'package:api_handler/core/consts/user_agent.dart';
 import 'package:api_handler/feature/api_handler/domain/usecases/get_api_usecase.dart';
+import 'package:api_handler/main.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import '../../../core/models/api_data/api_data.dart';
@@ -26,7 +27,9 @@ class APIHandler {
         compact: false,
         maxWidth: 300,
       ),
-    );
+    )
+    ..options.headers['X-Device-ID'] = deviceID;
+
   late GetApi _getApi;
   late PostApi _postApi;
   late PutApi _putApi;
