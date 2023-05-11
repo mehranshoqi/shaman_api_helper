@@ -35,7 +35,7 @@ class APIHandler {
         maxWidth: 300,
       ),
     );
-    dio.options.headers['X-Device-ID'] = deviceId;
+    // dio.options.headers['X-Device-ID'] = deviceId;
 
     _getApi = GetApi(dio);
     _postApi = PostApi(dio);
